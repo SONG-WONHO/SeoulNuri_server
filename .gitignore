@@ -58,5 +58,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# next.js build output
-.next
+# git init
+.git
+
+# webstrom init
+.idea
