@@ -12,12 +12,25 @@ const app = express();
 
 app.use((req, res, next) => {
   res.r = (result) => {
-      res.json({
-          status: 200,
-          code: 200,
-          message: "success",
-          data: result,
-      });
+
+      //result가 있을 때
+      if (result) {
+          res.json({
+              status: 200,
+              code: 200,
+              message: "success",
+              data: result
+          });
+      }
+
+      //result가 없을 때
+      else {
+          res.json({
+              status: 200,
+              code: 200,
+              message: "success"
+          });
+      }
   };
   next();
 });
