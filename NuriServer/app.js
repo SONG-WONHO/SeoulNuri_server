@@ -49,6 +49,23 @@ app.use(cookieParser());
 //middleware - static
 app.use(express.static(path.join(__dirname, 'public')));
 
+//유저검증모듈추가
+app.use((req, res, next)=>{
+
+    //적절한 유저 검증 절차 만들어주세요 :)
+
+    //적절한 유저 검증 절치가 이뤄졌다면
+    if (true) {
+        req.user_idx = 1;
+        next();
+    }
+
+    //적절하지 못한 유저 검증 절차라면
+    else {
+        next("10401");
+    }
+});
+
 app.use('/', indexRouter);
 // error handler
 require('./errorHandeler')(app);
