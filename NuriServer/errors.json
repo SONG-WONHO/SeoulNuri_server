@@ -1,0 +1,47 @@
+{
+    "400": {
+        "status": 200,
+        "code": 400,
+        "description": "값이 비어있습니다.",
+        "message": "Null Value"
+    },
+    "1401": {
+        "status": 200,
+        "code": 400,
+        "description": "가입되지 않은 유저입니다.",
+        "message": "Unsigned User"
+    },
+    "1402": {
+        "status": 200,
+        "code": 400,
+        "description": "이미 댓글을 등록한 유저입니다.",
+        "message": "Existed User From Comment"
+    },
+    "10401": {
+        "status": 200,
+        "code": 403,
+        "description": "토큰 에러입니다.",
+        "message": "Token Error"
+    },
+    
+    "500": {
+        "status": 500,
+        "code": 500,
+        "description": "서버 오류",
+        "message": "Internal Server Error"
+    },
+    "9401": {
+        "status": 200,
+        "code": 400,
+        "description": "파라미터가 잘못되었습니다.",
+        "message": "Invalid Parameter"
+    },
+    "8400": {
+        "status": false,
+        "message": "400 Error"
+    },
+    "9500": {
+        "status": false,
+        "message": "500 error"
+    }
+}
