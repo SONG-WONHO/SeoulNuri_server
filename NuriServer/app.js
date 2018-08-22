@@ -13,9 +13,10 @@ const app = express();
 app.use((req, res, next) => {
   res.r = (result) => {
       res.json({
-          status: true,
+          status: 200,
+          code: 200,
           message: "success",
-          result,
+          data: result,
       });
   };
   next();
