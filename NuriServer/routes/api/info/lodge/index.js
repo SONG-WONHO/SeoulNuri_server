@@ -5,6 +5,10 @@ const router = express.Router();
 const detailIntroductionRouter = require('./detail-introduction');
 router.use('/detail-introduction', detailIntroductionRouter);
 
+//라우터 모듈 임포트
+const commentRouter = require('./comment');
+router.use('/comment', commentRouter);
+
 //module
 const lodge = require('../../../../module/lodge/lodge');
 
@@ -22,7 +26,6 @@ router.get('/', async (req, res, next) => {
     }
 
     catch(err) {
-        console.log(err);
         next(err);
         return;
     }

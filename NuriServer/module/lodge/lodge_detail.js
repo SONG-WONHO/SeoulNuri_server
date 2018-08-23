@@ -3,7 +3,7 @@ const db = require('../db');
 module.exports = {
 
     /*
-    - input: lodge index
+    - input: lodge index, user index
     - output: lodge data (solo)
      */
     get_lodge_detail: async (lodge_idx, user_idx) => {
