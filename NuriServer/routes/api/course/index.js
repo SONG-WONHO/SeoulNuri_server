@@ -5,9 +5,23 @@ const router = express.Router();
 const commentRouter = require('./comment');
 router.use('/comment', commentRouter);
 
+//module
+const course_star = require('../../../module/course/course_star');
+
 /* GET home page. */
-router.get('/', (req, res, next) => {
-    res.render('index', { title: 'Express' });
+router.get('/', async (req, res, next) => {
+
+    let star;
+
+    try {
+        star = await course_star.get_star();
+    } catch (err) {
+        next(err);
+        return;
+    }
+
+    res.r(star);
+
 });
 
 module.exports = router;
