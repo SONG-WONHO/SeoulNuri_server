@@ -69,7 +69,8 @@ module.exports = {
 		// 필터에 맞는 관광지 index들 값
 		let selectIdxResult = await db.queryParamNone(selectRecoIdxQuery2)
 		
-		console.log(selectIdxResult)
+		//console.log(selectIdxResult)
+		
 		// 아무 값도 없을 때
 		if(!selectIdxResult)
 			return null
@@ -234,7 +235,7 @@ module.exports = {
 		if(!isExist){
 			delete selectIdxResult[x] // 삭제(undefined)
 		}
-		console.log(selectIdxResult)
+		//console.log(selectIdxResult)
 	}
 
 
@@ -254,7 +255,7 @@ module.exports = {
 			data[i].tour_star = selectResult[0].tour_star
 			data[i].tour_star_count = selectResult[0].tour_star_count
 		}
-		console.log(data)
+		//console.log(data)
 
 		return data
 	}

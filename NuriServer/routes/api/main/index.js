@@ -23,7 +23,7 @@ router.get('/', async(req, res, next) => {
 		}
 
 		rand_tour = await randomTour.get_random_tour()
-		reco_tour = await handitypeTour.get_handitype_reco_tour(handitype)
+		reco_tour = await handitypeTour.get_handitype_reco_tour([1,2])
 
 		data.reco_tour = reco_tour
 		data.rand_tour = rand_tour
