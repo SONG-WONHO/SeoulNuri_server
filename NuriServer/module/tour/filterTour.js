@@ -20,7 +20,7 @@ module.exports = {
 
 	//************전체 일 때 처리?
 	get_filter_tour : async (handi_type, filter) => {
-		console.log(handi_type, filter)
+		let data = [] // 리턴 값
 		let types = []
 		//console.log(handi_type[0])
 		for(i = 0 ; i < handi_type.length ; i++){
@@ -41,6 +41,27 @@ module.exports = {
 				types[i] = "tour_older"
 				break 
 			}
+		}
+
+		if(handi_type.indexOf(9) != -1){ // default일 경우
+			let selectDefaultQuery =
+			`
+			SELECT tour_idx, tour_name, tour_image, tour_star, tour_star_count
+			FROM tour
+			`
+
+			let selectDefaultResult = await db.queryParamNone(selectDefaultQuery)
+
+			for(i = 0 ; i < selectDefaultResult.length; i++){
+				data[i] = {}
+				data[i].tour_idx = selectDefaultResult[i].tour_idx
+				data[i].tour_name = selectDefaultResult[i].tour_name
+				data[i].tour_image = selectDefaultResult[i].tour_image
+				data[i].tour_star = selectDefaultResult[i].tour_star
+				data[i].tour_star_count = selectDefaultResult[i].tour_star_count
+			}
+
+			return data
 		}
 		//console.log(types)	
 
@@ -70,7 +91,7 @@ module.exports = {
 		let selectIdxResult = await db.queryParamNone(selectRecoIdxQuery2)
 		
 		//console.log(selectIdxResult)
-		
+
 		// 아무 값도 없을 때
 		if(!selectIdxResult)
 			return null
@@ -245,7 +266,6 @@ module.exports = {
 		WHERE tour_idx = ?
 		`
 		
-		let data = []
 		for(i = 0 ; selectIdxResult[i] != undefined && i < selectIdxResult.length ; i++){
 			let selectResult = await db.queryParamArr(selectRecoQuery, selectIdxResult[i].tour_idx)
 			data[i] = {}
