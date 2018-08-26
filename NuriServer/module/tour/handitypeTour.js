@@ -61,5 +61,7 @@ module.exports = {
 			tours_index.splice(result,1)
 		}
 
+		return results
+
 	}
 }

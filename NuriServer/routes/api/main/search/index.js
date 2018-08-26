@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const handi_type_reco = require('../../../../module/tour/detailTour')
+const a = require('../../../../module/tour/filterTour')
 
-router.get('/', async (req, res, next) => {
-	let test
+router.get('/', async(req,res,next)=>{
 
-	test = await handi_type_reco.get_with_tour(1)
+ let b = await a.get_filter_tour([1,2,3,4],[0,2,10,20,22, 31])	
+
 })
+
 // /* GET home page. */
 // router.get('/', (req, res, next) => {
 //     res.render('index', { title: 'Express' });
