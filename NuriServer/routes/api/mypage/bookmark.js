@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bookmark = require('../../../module/bookmark/bookmark.js');
 
-router.get('/', async (req,res,next)=>{
-    console.log(1);
+router.get('/course', async (req,res,next)=>{
+    
     let bookmarkList;
     try {
         
@@ -16,4 +16,17 @@ router.get('/', async (req,res,next)=>{
     res.r(bookmarkList);
 });
 
+router.get('/tour', async (req,res,next)=>{
+    
+    let bookmarkList;
+    try {
+        
+        bookmarkList = await bookmark.get_bookmark("tour",req.user_idx);
+        console.log(bookmarkList[0]);
+    } catch (err) {
+        next("err");
+        return;
+    }
+    res.r(bookmarkList);
+});
 module.exports = router;
