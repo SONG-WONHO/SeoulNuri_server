@@ -3,6 +3,7 @@ const db = require('../db')
 module.exports = {
 
 	// 관광지 공통(화면 상단)
+	
 	get_common_tour : async(tour_idx, user_idx) => {
 		let selectCommonQuery =
 		`
@@ -108,6 +109,8 @@ module.exports = {
 		let result = {}
 
 		// 예외처리 쉽게 하기 위한 초기화
+		result.accessibility = {}
+
 		result.tour_common = {}
 		result.tour_common.parking = null
 		result.tour_common.transportation = null
@@ -217,8 +220,78 @@ module.exports = {
 			result.tour_older.elevator = selectOlderResult[0].elevator
 		}
 
-		console.log(result)
+		// Accessibility 설정
+		let all = 0
+		let cnt = 0
 
+		Object.entries(result.tour_visual).forEach(function([key, value]){
+			all++
+			if(value != null)
+				cnt++
+		})
+		console.log(cnt)
+		console.log(all)
+		console.log(cnt/all)
+		if(cnt/all < 0.33){
+			result.accessibility.visual = "하"
+		} else if (cnt/all < 0.66){
+			result.accessibility.visual = "중"
+		} else{
+			result.accessibility.visual = "상"
+		}
+
+		all = 0
+		cnt = 0
+
+		Object.entries(result.tour_hearing).forEach(function([key, value]){
+			all++
+			if(value != null)
+				cnt++
+		})
+
+		if(cnt/all < 0.33){
+			result.accessibility.hearing = "하"
+		} else if (cnt/all < 0.66){
+			result.accessibility.hearing = "중"
+		} else{
+			result.accessibility.hearing = "상"
+		}
+
+		all = 0
+		cnt = 0
+
+		Object.entries(result.tour_physical).forEach(function([key, value]){
+			all++
+			if(value != null)
+				cnt++
+		})
+
+		if(cnt/all < 0.33){
+			result.accessibility.physical = "하"
+		} else if (cnt/all < 0.66){
+			result.accessibility.physical = "중"
+		} else{
+			result.accessibility.physical = "상"
+		}
+
+		all++
+		cnt = 0
+
+		Object.entries(result.tour_older).forEach(function([key, value]){
+			all++
+			if(value != null)
+				cnt++
+		})
+
+		if(cnt/all < 0.33){
+			result.accessibility.older = "하"
+		} else if (cnt/all < 0.66){
+			result.accessibility.older = "중"
+		} else{
+			result.accessibility.older = "상"
+		}
+
+		return result
 	}
 
 }
