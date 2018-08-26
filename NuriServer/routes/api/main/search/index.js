@@ -6,7 +6,7 @@ const handi_type_reco = require('../../../../module/tour/detailTour')
 router.get('/', async (req, res, next) => {
 	let test
 
-	test = await handi_type_reco.get_intro_tour(1)
+	test = await handi_type_reco.get_common_tour(2,1)
 })
 // /* GET home page. */
 // router.get('/', (req, res, next) => {
