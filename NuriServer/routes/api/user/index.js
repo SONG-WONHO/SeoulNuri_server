@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mypage = require('../../../module/mypage/mypage.js');
 
+const signupRouter = require('./signup')
+router.use('/signup', signupRouter)
+
 router.post('/',async(req,res,next)=>{
     let handiList = req.body.handi_type;
     if(handiList.length===0){
