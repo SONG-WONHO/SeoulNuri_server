@@ -5,6 +5,12 @@
         "description": "값이 비어있습니다.",
         "message": "Null Value"
     },
+    "1400" : {
+        "status": 200,
+        "code": 400,
+        "description": "이미 가입되어 있습니다.",
+        "message": "Already Exist"
+    },
     "1401": {
         "status": 200,
         "code": 400,
