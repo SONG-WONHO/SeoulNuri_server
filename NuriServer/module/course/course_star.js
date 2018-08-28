@@ -10,7 +10,7 @@ module.exports = {
 
         let selectQuery =
             `
-            SELECT cour_star, cour_star_count
+            SELECT course_star, course_star_count
             FROM course;
             `;
 
