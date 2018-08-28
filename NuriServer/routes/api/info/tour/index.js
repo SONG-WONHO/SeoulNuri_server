@@ -6,7 +6,14 @@ const filterTour = require('../../../../module/tour/filterTour')
 
 //라우터 모듈 임포트
 const commentRouter = require('./comment');
+const detail_introduction_Router = require('./detail-introduction');
+const detail_method_Router = require('./detail-method');
+const detail_barrier_free_Router = require('./detail-barrier-free');
+
 router.use('/comment', commentRouter);
+router.use('/detail-introduction', detail_introduction_Router);
+router.use('/detail-method', detail_method_Router);
+router.use('/detail-barrier-free', detail_barrier_free_Router);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {

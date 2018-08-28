@@ -43,7 +43,8 @@ module.exports = {
 			}
 		}
 
-		if(handi_type.indexOf(9) != -1){ // default일 경우
+		// default일 경우, 관광지 모두 반환
+		if(handi_type.indexOf(9) != -1){
 			let selectDefaultQuery =
 			`
 			SELECT tour_idx, tour_name, tour_image, tour_star, tour_star_count

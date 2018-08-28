@@ -70,15 +70,15 @@ module.exports = {
 		return result
 	},
 	// 관광지 이용안내 (화면 하단)
-	get_usage_tour : async(tour_idx) => {
-		let selectUsageQuery =
+	get_method_tour : async(tour_idx) => {
+		let selectMethodQuery =
 		`
 		SELECT *
 		FROM tour
 		WHERE tour_idx = ?
 		`
 
-		let selectResult = await db.queryParamArr(selectUsageQuery, tour_idx)
+		let selectResult = await db.queryParamArr(selectMethodQuery, tour_idx)
 
 		let result = {}
 		result.tour_info_use = null
@@ -105,40 +105,40 @@ module.exports = {
 	},
 
 	// 관광지 무장애정보 (화면 하단)
-	get_with_tour : async(tour_idx) => {
+	get_barrier_free_tour : async(tour_idx) => {
 		let result = {}
 
 		// 예외처리 쉽게 하기 위한 초기화
 		result.accessibility = {}
 
-		result.tour_common = {}
-		result.tour_common.parking = null
-		result.tour_common.transportation = null
-		result.tour_common.road = null
-		result.tour_common.entrance = null
-		result.tour_common.toilet = null
-		result.tour_common.infodesk = null
+		result.common = {}
+		result.common.parking = null
+		result.common.transportation = null
+		result.common.road = null
+		result.common.entrance = null
+		result.common.toilet = null
+		result.common.infodesk = null
 
-		result.tour_physical = {}
-		result.tour_physical.wheelchair = null
-		result.tour_physical.elevator = null
-		result.tour_physical.seat = null
+		result.physical = {}
+		result.physical.wheelchair = null
+		result.physical.elevator = null
+		result.physical.seat = null
 
-		result.tour_visual = {}
-		result.tour_visual.block = null
-		result.tour_visual.promotion = null
-		result.tour_visual.dog = null
-		result.tour_visual.audio = null
-		result.tour_visual.guide = null
-		result.tour_visual.plate = null
+		result.visual = {}
+		result.visual.block = null
+		result.visual.promotion = null
+		result.visual.dog = null
+		result.visual.audio = null
+		result.visual.guide = null
+		result.visual.plate = null
 
-		result.tour_hearing = {}
-		result.tour_hearing.signlang = null
-		result.tour_hearing.subtitle = null
+		result.hearing = {}
+		result.hearing.signlang = null
+		result.hearing.subtitle = null
 
-		result.tour_older = {}
-		result.tour_older.wheelchair = null
-		result.tour_older.elevator = null
+		result.older = {}
+		result.older.wheelchair = null
+		result.older.elevator = null
 
 		let selectCommonQuery =
 		`
@@ -150,12 +150,12 @@ module.exports = {
 		let selectCommonResult = await db.queryParamArr(selectCommonQuery,tour_idx)
 
 		if(selectCommonResult.length != 0){
-			result.tour_common.parking = selectCommonResult[0].parking
-			result.tour_common.transportation = selectCommonResult[0].transportation
-			result.tour_common.road = selectCommonResult[0].road
-			result.tour_common.entrance = selectCommonResult[0].entrance
-			result.tour_common.toilet = selectCommonResult[0].toilet
-			result.tour_common.infodesk = selectCommonResult[0].infodesk
+			result.common.parking = selectCommonResult[0].parking
+			result.common.transportation = selectCommonResult[0].transportation
+			result.common.road = selectCommonResult[0].road
+			result.common.entrance = selectCommonResult[0].entrance
+			result.common.toilet = selectCommonResult[0].toilet
+			result.common.infodesk = selectCommonResult[0].infodesk
 		}
 
 
@@ -169,9 +169,9 @@ module.exports = {
 		let selectPhysicalResult = await db.queryParamArr(selectPhysicalQuery,tour_idx)
 
 		if(selectPhysicalResult.length != 0){
-			result.tour_physical.wheelchair = selectPhysicalResult[0].wheelchair
-			result.tour_physical.elevator = selectPhysicalResult[0].elevator
-			result.tour_physical.seat = selectPhysicalResult[0].seat
+			result.physical.wheelchair = selectPhysicalResult[0].wheelchair
+			result.physical.elevator = selectPhysicalResult[0].elevator
+			result.physical.seat = selectPhysicalResult[0].seat
 		}
 
 		let selectVisualQuery =
@@ -184,12 +184,12 @@ module.exports = {
 		let selectVisualResult = await db.queryParamArr(selectVisualQuery,tour_idx)
 
 		if(selectVisualResult.length != 0){
-			result.tour_visual.block = selectVisualResult[0].block
-			result.tour_visual.promotion = selectVisualResult[0].promotion
-			result.tour_visual.dog = selectVisualResult[0].dog
-			result.tour_visual.audio = selectVisualResult[0].audio
-			result.tour_visual.guide = selectVisualResult[0].guide
-			result.tour_visual.plate = selectVisualResult[0].plate
+			result.visual.block = selectVisualResult[0].block
+			result.visual.promotion = selectVisualResult[0].promotion
+			result.visual.dog = selectVisualResult[0].dog
+			result.visual.audio = selectVisualResult[0].audio
+			result.visual.guide = selectVisualResult[0].guide
+			result.visual.plate = selectVisualResult[0].plate
 		}
 
 		let selectHearingQuery =
@@ -202,8 +202,8 @@ module.exports = {
 		let selectHearingResult = await db.queryParamArr(selectHearingQuery,tour_idx)
 
 		if(selectHearingResult.length != 0){
-			result.tour_hearing.signlang = selectHearingResult[0].signlang
-			result.tour_hearing.subtitle = selectHearingResult[0].subtitle
+			result.hearing.signlang = selectHearingResult[0].signlang
+			result.hearing.subtitle = selectHearingResult[0].subtitle
 		}
 
 		let selectOlderQuery =
@@ -216,15 +216,15 @@ module.exports = {
 		let selectOlderResult = await db.queryParamArr(selectOlderQuery,tour_idx)
 
 		if(selectOlderResult.length != 0){
-			result.tour_older.wheelchair = selectOlderResult[0].wheelchair
-			result.tour_older.elevator = selectOlderResult[0].elevator
+			result.older.wheelchair = selectOlderResult[0].wheelchair
+			result.older.elevator = selectOlderResult[0].elevator
 		}
 
 		// Accessibility 설정
 		let all = 0
 		let cnt = 0
 
-		Object.entries(result.tour_visual).forEach(function([key, value]){
+		Object.entries(result.visual).forEach(function([key, value]){
 			all++
 			if(value != null)
 				cnt++
@@ -243,7 +243,7 @@ module.exports = {
 		all = 0
 		cnt = 0
 
-		Object.entries(result.tour_hearing).forEach(function([key, value]){
+		Object.entries(result.hearing).forEach(function([key, value]){
 			all++
 			if(value != null)
 				cnt++
@@ -260,7 +260,7 @@ module.exports = {
 		all = 0
 		cnt = 0
 
-		Object.entries(result.tour_physical).forEach(function([key, value]){
+		Object.entries(result.physical).forEach(function([key, value]){
 			all++
 			if(value != null)
 				cnt++
@@ -277,7 +277,7 @@ module.exports = {
 		all++
 		cnt = 0
 
-		Object.entries(result.tour_older).forEach(function([key, value]){
+		Object.entries(result.older).forEach(function([key, value]){
 			all++
 			if(value != null)
 				cnt++
