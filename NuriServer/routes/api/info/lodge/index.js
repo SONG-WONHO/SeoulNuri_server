@@ -9,6 +9,9 @@ router.use('/detail-introduction', detailIntroductionRouter);
 const commentRouter = require('./comment');
 router.use('/comment', commentRouter);
 
+//라우터 모듈 임포트
+const starRouter = require('./star');
+router.use('/star',starRouter);
 //module
 const lodge = require('../../../../module/lodge/lodge');
 
