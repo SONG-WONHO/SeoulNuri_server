@@ -1,20 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const bookmark = require('../../../module/bookmark/bookmark.js');
+const planner = require('../../../module/planner/planner');
 
 
-router.post('/', async (req,res,next)=>{
+router.get('/',async(req,res,next)=>{
+    let result;
+
     try {
-        let courseIdx = req.body.course_idx;
-        if(!courseIdx){
+        let tourIdx = req.query.tour_idx;
+
+        if(!tourIdx || tourIdx==="[]"){
             next("400");
             return;
         }
-        let result = await bookmark.post_bookmark("course",courseIdx,req.user_idx);
+        result = await planner.get_planner_first(tourIdx);
         if(!result){
             next("500");
             return;
         }
+        
+
 
         
     } catch (err) {
@@ -22,9 +27,8 @@ router.post('/', async (req,res,next)=>{
         return;
         
     }
-    res.r();
+    res.r(result);
+    
 });
-
-
 
 module.exports = router;

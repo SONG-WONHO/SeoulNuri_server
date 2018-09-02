@@ -10,7 +10,7 @@ router.get('/course', async (req,res,next)=>{
         bookmarkList = await bookmark.get_bookmark("course",req.user_idx);
         console.log(bookmarkList[0]);
     } catch (err) {
-        next("err");
+        next(err);
         return;
     }
     res.r(bookmarkList);
@@ -24,7 +24,7 @@ router.get('/tour', async (req,res,next)=>{
         bookmarkList = await bookmark.get_bookmark("tour",req.user_idx);
         console.log(bookmarkList[0]);
     } catch (err) {
-        next("err");
+        next(err);
         return;
     }
     res.r(bookmarkList);

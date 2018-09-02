@@ -12,7 +12,7 @@ module.exports = {
 
         selectResult = selectResult.filter((value)=>{
 
-            if(word === "" ){
+            if(word === ""){
                 
                 return true;
             }
