@@ -13,11 +13,12 @@ router.get('/', async(req,res,next)=>{
 
 //메인에서 검색창 키워드 넣었을 때
 router.get('/keyword', async(req,res,next)=>{
+    let result;
 
     try {
         let word = req.query.word || "";
     
-        let result = await search.get_search(word);
+        result = await search.get_search(word);
         if(!result){
             next("500");
             return;
