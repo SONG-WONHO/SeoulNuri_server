@@ -86,6 +86,7 @@ router.post('/', async(req, res, next) => {
 		next(err)
 		return
 	}
+	console.log("토큰"+token);
 
 	res.r(token)
 })
