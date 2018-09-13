@@ -3,10 +3,15 @@ const router = express.Router();
 
 //라우터 모듈 임포트
 const commentRouter = require('./comment');
+const bookmarkRouter = require('./bookmark');
+
+router.use('/bookmark',bookmarkRouter);
 router.use('/comment', commentRouter);
+
 
 //module
 const course_star = require('../../../module/course/course_star');
+
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
