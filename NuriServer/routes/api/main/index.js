@@ -10,7 +10,7 @@ router.use('/search',searchRouter);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
-	let handitype = req.handitype // 배열
+	let handitype = req.handi_type // 배열
 	let reco_tour
 	let rand_tour
 	let data = {}
@@ -23,7 +23,7 @@ router.get('/', async(req, res, next) => {
 		}
 
 		rand_tour = await randomTour.get_random_tour()
-		reco_tour = await handitypeTour.get_handitype_reco_tour([1,2])
+		reco_tour = await handitypeTour.get_handitype_reco_tour(handitype)
 
 		data.reco_tour = reco_tour
 		data.rand_tour = rand_tour
