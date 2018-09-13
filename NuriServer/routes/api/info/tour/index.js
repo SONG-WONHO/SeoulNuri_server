@@ -10,12 +10,15 @@ const bookmarkRouter = require('./bookmark');
 const detail_introduction_Router = require('./detail-introduction');
 const detail_method_Router = require('./detail-method');
 const detail_barrier_free_Router = require('./detail-barrier-free');
+const starRouter = require('./star');
+
 
 router.use('/comment', commentRouter);
 router.use('/detail-introduction', detail_introduction_Router);
 router.use('/detail-method', detail_method_Router);
 router.use('/detail-barrier-free', detail_barrier_free_Router);
 router.use('/bookmark', bookmarkRouter);
+router.use('/star',starRouter);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
