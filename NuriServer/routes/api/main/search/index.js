@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const a = require('../../../../module/tour/filterTour')
 const search = require('../../../../module/search/search.js');
 
