@@ -3,6 +3,7 @@ const db = require('../db');
 module.exports = {
     post_handiType : async(handiType,user_idx) => {
         let handiList = Array.from(handiType);
+        console.log(handiList);
         if(handiList.length === 0){            
             return false;
         }
