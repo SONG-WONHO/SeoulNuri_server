@@ -15,19 +15,19 @@ module.exports = {
 		console.log(handi_type[0])
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
-				case 1 :
+				case "1" :
 				types[i] = "tour_visual"
 				break
 
-				case 2 :
+				case "2" :
 				types[i] = "tour_hearing"
 				break
 
-				case 3 :
+				case "3" :
 				types[i] = "tour_physical"
 				break
 
-				case 4 :
+				case "4" :
 				types[i] = "tour_older"
 				break 
 			}
