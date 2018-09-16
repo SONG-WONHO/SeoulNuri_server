@@ -45,11 +45,47 @@ module.exports = {
             }
         }
 
-        
-
-
-
-        
         return result;
+    },
+
+
+    add_plan : async(user_idx, plan_date, tour_idx_before) => {
+        let plan_idx
+        let tour_idx_after = []
+        let cnt = 0
+
+        for(i = 1 ; i < tour_idx_before.length ; i += 2){
+            tour_idx_after[cnt] = tour_idx_before[i]
+            cnt++
+        }
+
+        let insertNewPlanQuery =
+        `
+        INSERT INTO planner_list(user_idx, plan_date)
+        VALUE (?, ?)
+        `
+
+        let insertNewPlanResult = await db.queryParamArr(insertNewPlanQuery, [user_idx, plan_date])
+
+        if(!insertNewPlanResult){
+            return false
+        }
+        // 방금 넣은 plan의 index
+        plan_idx = insertNewPlanResult.insertId
+
+        let insertNewPlanTourQuery =
+        `
+        INSERT INTO planner_detail(plan_idx, tour_idx)
+        VALUE (?, ?)
+        `
+
+        for(i = 0 ; i < tour_idx_after.length ; i++){
+            let insertNewPlanTourResult = await db.queryParamArr(insertNewPlanTourQuery, [plan_idx, tour_idx_after[i]])
+            if(!insertNewPlanTourResult){
+                return false
+            }
+        }
+
+        return plan_idx
     }
 };
