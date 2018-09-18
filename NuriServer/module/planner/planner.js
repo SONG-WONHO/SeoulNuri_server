@@ -53,21 +53,29 @@ module.exports = {
         let plan_idx
         let tour_idx_after = []
         let cnt = 0
+        tour_idx_before = Array.from(tour_idx_before);
+        tour_idx_before.splice(0,1);
+        tour_idx_before.pop();
+        let tourString = tour_idx_before.join('');
+        tour_idx_before = tourString.split(',').map(Number);
+        console.log(tour_idx_before);
 
-        for(i = 1 ; i < tour_idx_before.length ; i += 2){
+        for(i = 0 ; i < tour_idx_before.length ; i ++){
             tour_idx_after[cnt] = tour_idx_before[i]
             cnt++
-        }
 
+        }
+        console.log("ss");
         let insertNewPlanQuery =
         `
         INSERT INTO planner_list(user_idx, plan_date)
-        VALUE (?, ?)
+        VALUES (?, ?)
         `
 
         let insertNewPlanResult = await db.queryParamArr(insertNewPlanQuery, [user_idx, plan_date])
 
         if(!insertNewPlanResult){
+            console.log("aaa");
             return false
         }
         // 방금 넣은 plan의 index
