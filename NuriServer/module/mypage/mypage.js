@@ -2,8 +2,17 @@ const db = require('../db');
 
 module.exports = {
     post_handiType : async(handiType,user_idx) => {
+        
         let handiList = Array.from(handiType);
-        console.log(handiList);
+        handiList.splice(0,1);
+        handiList.pop();
+        let realHandList;
+        let handString = handiList.join("");
+        realhandList = handString.split(",").map(Number);
+        
+        
+        console.log(realhandList);
+        
         if(handiList.length === 0){            
             return false;
         }
