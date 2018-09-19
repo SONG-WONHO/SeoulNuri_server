@@ -3,7 +3,7 @@ const router = express.Router();
 const planner = require('../../../module/planner/planner');
 
 const plannerAdd = require('./add/add');
-const plannerSearch = require('./search/search1')
+const plannerSearch = require('./search/search')
 
 router.use('/add', plannerAdd)
 router.use('/search', plannerSearch)
