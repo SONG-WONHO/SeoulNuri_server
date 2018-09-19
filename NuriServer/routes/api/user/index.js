@@ -10,6 +10,7 @@ router.post('/',async(req,res,next)=>{
 
     try {
         let handiList = req.body.handi_type;
+        console.log(handiList);
     if(handiList.length===0){
         next("400");
         return;

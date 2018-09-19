@@ -13,12 +13,14 @@ module.exports = {
         
         console.log(realhandList);
         
-        if(handiList.length === 0){            
+        if(handiList.length === 0){
+            console.log("11");            
             return false;
         }
         let deleteQuery = `DELETE FROM handi_type WHERE user_idx = ?`;
         let deleteResult = await db.queryParamArr(deleteQuery,[user_idx]);
         if(!deleteResult){
+            console.log("22");
             return false;
         }
 
@@ -26,6 +28,7 @@ module.exports = {
             let insertQuery =`INSERT INTO handi_type (handi_type, user_idx) VALUES (?,?)`;
             let insertResult = await db.queryParamArr(insertQuery,[handiList[i],user_idx]);
             if(!insertResult){
+                console.log("33");
                 return false;
             }
         }
