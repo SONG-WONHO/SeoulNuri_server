@@ -6,7 +6,6 @@ const search = require('../../../../module/search/search.js');
 //검색창 키워드 넣었을 때
 router.get('/keyword', async(req,res,next)=>{
     let result;
-    
 
     try {
         let word = req.query.word || "";
