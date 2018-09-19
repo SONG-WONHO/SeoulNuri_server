@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const planner = require('../../../module/planner/planner');
 
-const plannerAdd = require('./add/index');
+const plannerAdd = require('./add/add');
+const plannerSearch = require('./search/search')
 
-router.use('/add', plannerAdd);
+router.use('/add', plannerAdd)
+router.use('/search', plannerSearch)
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {

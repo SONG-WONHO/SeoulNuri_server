@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
+const user = require('./module/user/user')
 
 const indexRouter = require('./routes/index');
 
@@ -50,13 +51,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //유저검증모듈추가
-app.use((req, res, next)=>{
+app.use(async (req, res, next)=>{
 
     //적절한 유저 검증 절차 만들어주세요 :)
 
+    let result = await user.user_Verify(req.headers.token)
+    
     //적절한 유저 검증 절치가 이뤄졌다면
-    if (true) {
-        req.user_idx = 1;
+    if (result) {
+        req.user = result;
         next();
     }
 
