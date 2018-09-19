@@ -56,7 +56,7 @@ app.use(async (req, res, next)=>{
     //적절한 유저 검증 절차 만들어주세요 :)
 
     let result = await user.user_Verify(req.headers.token)
-    console.log(result)
+    
     //적절한 유저 검증 절치가 이뤄졌다면
     if (result) {
         req.user = result;
