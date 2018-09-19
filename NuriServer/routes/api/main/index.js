@@ -10,7 +10,7 @@ router.use('/search',searchRouter);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
-	let handitype = req.query.handi_type // 배열
+	let handitype = req.user.handi_type // 배열
 	let reco_tour
 	let rand_tour
 	let data = {}
