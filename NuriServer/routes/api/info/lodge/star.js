@@ -14,7 +14,7 @@ router.post('/',async(req,res,next)=>{
             next("400");
             return;
         }
-        let result = await starMD.post_star("lodge",lodgeIdx,req.user_idx,star);
+        let result = await starMD.post_star("lodge",lodgeIdx,req.user.user_idx,star);
         
         if(!result || result === false){
             next("500");

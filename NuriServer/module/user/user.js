@@ -22,12 +22,13 @@ module.exports = {
 		`
 
 		let infoResult = await db.queryParamArr(getUserInfoQuery, kakao_idx)
-		user_idx = infoResult[0].user_idx
-
 		if(!infoResult){
 			return -1
 		}
 
+		user_idx = infoResult[0].user_idx
+
+		
 
 		let getUserHandiTypeQuery =
 		`

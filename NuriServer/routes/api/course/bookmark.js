@@ -10,7 +10,7 @@ router.post('/', async (req,res,next)=>{
             next("400");
             return;
         }
-        let result = await bookmark.post_bookmark("course",courseIdx,req.user_idx);
+        let result = await bookmark.post_bookmark("course",courseIdx,req.user.user_idx);
         if(!result){
             next("500");
             return;

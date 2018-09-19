@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
             return;
         }
 
-        lodge = await lodge_detail.get_lodge_detail(lodge_idx, req.user_idx);
+        lodge = await lodge_detail.get_lodge_detail(lodge_idx, req.user.user_idx);
         //undefined 경우 catch 에서 안잡혀서 아래와 같이 undefined 검출!!
         console.log(lodge[0]);
     }

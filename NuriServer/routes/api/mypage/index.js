@@ -18,7 +18,7 @@ router.post('/',async(req,res,next)=>{
         next("400");
         return;
     }
-    let result = await mypage.post_handiType(handiList,req.user_idx);
+    let result = await mypage.post_handiType(handiList,req.user.user_idx);
     console.log(result);
     if(result === false){
         next("500");

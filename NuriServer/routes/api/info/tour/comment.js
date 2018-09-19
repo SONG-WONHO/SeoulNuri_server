@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
             return;
         }
 
-        let result = await comment.post_comment("tour", tour_idx, req.user_idx, contents);
+        let result = await comment.post_comment("tour", tour_idx, req.user.user_idx, contents);
 
         if (!result) {
             next("500");

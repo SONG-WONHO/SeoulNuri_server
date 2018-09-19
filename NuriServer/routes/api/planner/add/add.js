@@ -3,7 +3,7 @@ const router = express.Router()
 const planner = require('../../../../module/planner/planner')
 
 router.post('/', async(req,res,next) =>{
-	let user_idx = req.user_idx
+	let user_idx = req.user.user_idx
 	let plan_date = req.body.plan_date
 	let tour_idx = req.body.tour_idx
 	let data = {}
