@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const a = require('../../../../module/tour/filterTour')
 const search = require('../../../../module/search/search.js');
 
-//메인에서 검색창 키워드 넣었을 때
+
+//검색창 키워드 넣었을 때
 router.get('/keyword', async(req,res,next)=>{
     let result;
 
@@ -27,5 +27,6 @@ router.get('/keyword', async(req,res,next)=>{
 
 
 });
+
 
 module.exports = router;
