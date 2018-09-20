@@ -95,5 +95,35 @@ module.exports = {
         }
 
         return plan_idx
+    },
+
+    delete_plan : async( user_idx,plan_idx)=>{
+        
+        //플랜 있는지 확인, 있으면 지우기
+        let selectQuery = `SELECT * FROM SEOULNURI.planner_list WHERE plan_idx = ? AND user_idx = ?`;
+        let selectResult = await db.queryParamArr(selectQuery,[plan_idx, user_idx]);
+        //디텔 있는지 확인, 있으면 지우기
+        let selectQuery1 = `SELECT * FROM planner_detail WHERE plan_idx = ?`;
+        let selectResult1 = await db.queryParamArr(selectQuery1,[plan_idx]);
+
+        if(!selectResult || selectResult1 ){
+            
+            return false;
+
+        }
+
+        let deleteQuery = `DELETE SEOULNURI.planner_detail, SEOULNURI.planner_list 
+        FROM SEOULNURI.planner_detail inner join SEOULNURI.planner_list 
+        WHERE planner_detail.plan_idx = planner_list.plan_idx 
+        AND planner_detail.plan_idx = ? 
+        AND planner_list.user_idx = ?`
+        // 디테일, 플랜 지우기
+
+        let deleteResult = await db.queryParamArr(deleteQuery,[plan_idx,user_idx]);
+
+        if(!deleteResult){
+            return false;
+        }
+        return true;
     }
 };

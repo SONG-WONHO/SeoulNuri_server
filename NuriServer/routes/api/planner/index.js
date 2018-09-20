@@ -3,10 +3,12 @@ const router = express.Router();
 const planner = require('../../../module/planner/planner');
 
 const plannerAdd = require('./add/add');
-const plannerSearch = require('./search/search')
+const plannerSearch = require('./search/search');
+const plannerCancel = require('./cancel/cancel');
 
 router.use('/add', plannerAdd)
 router.use('/search', plannerSearch)
+router.use('/cancel',plannerCancel)
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
