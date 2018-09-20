@@ -37,7 +37,7 @@ module.exports = {
 		WHERE user_idx = ?
 		`
 
-		let handiTypeResult = await db.queryParamArr(getUserHandiTypeQuery, 1)
+		let handiTypeResult = await db.queryParamArr(getUserHandiTypeQuery, user_idx)
 
 		if(!handiTypeResult){
 			return -1
@@ -45,7 +45,7 @@ module.exports = {
 		for(i = 0 ; i < handiTypeResult.length ; i++){
 			handi_type[i] = handiTypeResult[i].handi_type
 		}
-
+		
 		user.user_idx = user_idx
 		user.handi_type = handi_type
 

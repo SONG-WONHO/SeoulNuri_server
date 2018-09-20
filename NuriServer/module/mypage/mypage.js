@@ -6,14 +6,14 @@ module.exports = {
         let handiList = Array.from(handiType);
         handiList.splice(0,1);
         handiList.pop();
-        let realHandList;
+        let realHandList = new Array;
+    
         let handString = handiList.join("");
-        realhandList = handString.split(",").map(Number);
+        realHandList = handString.split(",").map(Number);
+        console.log(realHandList);
         
         
-        console.log(realhandList);
-        
-        if(handiList.length === 0){
+        if(realHandList.length === 0){
             console.log("11");            
             return false;
         }
@@ -24,9 +24,9 @@ module.exports = {
             return false;
         }
 
-        for(let i = 0; i < handiList.length ; i++){
+        for(let i = 0; i < realHandList.length ; i++){
             let insertQuery =`INSERT INTO handi_type (handi_type, user_idx) VALUES (?,?)`;
-            let insertResult = await db.queryParamArr(insertQuery,[handiList[i],user_idx]);
+            let insertResult = await db.queryParamArr(insertQuery,[realHandList[i],user_idx]);
             if(!insertResult){
                 console.log("33");
                 return false;
