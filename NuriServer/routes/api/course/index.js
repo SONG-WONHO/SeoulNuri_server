@@ -5,10 +5,12 @@ const router = express.Router();
 const commentRouter = require('./comment');
 const bookmarkRouter = require('./bookmark');
 const starRouter = require('./star');
+const detailRouter = require('./detail');
 
 router.use('/bookmark',bookmarkRouter);
 router.use('/comment', commentRouter);
 router.use('/star',starRouter);
+router.use('/detail',detailRouter);
 
 //module
 const course_star = require('../../../module/course/course_star');

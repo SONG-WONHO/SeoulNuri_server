@@ -107,9 +107,7 @@ module.exports = {
         let selectResult1 = await db.queryParamArr(selectQuery1,[plan_idx]);
 
         if(!selectResult || selectResult1 ){
-            
             return false;
-
         }
 
         let deleteQuery = `DELETE SEOULNURI.planner_detail, SEOULNURI.planner_list 
