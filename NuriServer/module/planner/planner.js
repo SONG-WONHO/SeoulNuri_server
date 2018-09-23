@@ -123,5 +123,32 @@ module.exports = {
             return false;
         }
         return true;
+    },
+    get_planner_list : async(user_idx)=>{
+        
+        let selectQuery = `SELECT date_format(plan_date,"%Y") AS date_year, date_format(plan_date,"%c") AS date_month,
+        date_format(plan_date,"%d") AS date_day,plan_idx, substring_index( group_concat(tour_name),',',1) AS tour_name
+                FROM SEOULNURI.tour
+                JOIN(SELECT tour_idx, plan_date,planner_detail.plan_idx
+                FROM SEOULNURI.planner_list
+                LEFT JOIN SEOULNURI.planner_detail
+                ON planner_list.plan_idx = planner_detail.plan_idx
+                WHERE user_idx = ?
+            ) AS planner
+                ON planner.tour_idx = tour.tour_idx
+                GROUP BY plan_idx
+        `;//유저 인덱스 바꿔야함
+        let selectResult = await db.queryParamArr(selectQuery,[user_idx]);
+
+        if(!selectResult){
+            return false;
+        }
+
+        return selectResult;
+
+        
+
+
+
     }
 };
