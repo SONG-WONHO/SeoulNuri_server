@@ -26,6 +26,9 @@ router.get('/', async(req, res, next) => {
 	let filter = req.query.filter
 	let data
 
+	console.log(handi_type);
+	console.log(filter);
+
 	try {
 		if(!handi_type || !filter){
 			next("400")
