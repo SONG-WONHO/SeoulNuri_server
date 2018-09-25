@@ -6,7 +6,7 @@ const detailTour = require('../../../../module/tour/detailTour');
 
 router.get('/', async (req, res, next) => {
 	let tour_idx = req.query.tour_idx
-	let user_idx = req.query.user_idx
+	let user_idx = req.user.user_idx;
 
 	let data = {}
 	try {
