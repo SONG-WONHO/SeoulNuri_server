@@ -34,6 +34,25 @@ module.exports = {
         }
         return;
         
+    },
+    get_mypage : async (user_idx)=>{
+        let selectQuery = 'SELECT * FROM user WHERE user_idx = ?'
+        let selectResult = await db.queryParamArr(selectQuery,[user_idx]);
+        if(selectResult.length<1){
+            return "1403"
+        }else{
+            let userQuery = `SELECT group_concat(handi_type SEPARATOR ',') AS handi_type
+            FROM SEOULNURI.handi_type WHERE user_idx = ?`
+            let userResult = await db.queryParamArr(userQuery,[user_idx]);
+            
+            selectResult[0]["handi_type"] = userResult[0]["handi_type"];
+            return selectResult
+
+        }
+    
+
+
+
     }
 
 

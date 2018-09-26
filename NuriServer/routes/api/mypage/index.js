@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mypage = require('../../../module/mypage/mypage.js');
 /* GET home page. */
-router.get('/', (req, res, next) => {
-    res.render('index', { title: 'Express' });
-});
+
 
 
 //라우터 모듈
@@ -26,6 +24,23 @@ router.post('/',async(req,res,next)=>{
     }
     res.r();
 });
+router.get('/',async(req,res,next)=>{
+    let result;
+    try {
+            result = await mypage.get_mypage(req.user.user_idx);
+            if(typeof result ==="string"){
+                next(result)
+                return;
+            }
 
+
+        
+    } catch (err) {
+        next(err);
+        return;
+    }
+    res.r(result);
+
+})
 
 module.exports = router;
