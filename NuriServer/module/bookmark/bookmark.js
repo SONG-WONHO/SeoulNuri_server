@@ -35,11 +35,13 @@ module.exports = {
         
         console.log(selectResult[0]);
         if(selectResult.length >= 1){
-            let bookmarkQuery = `SELECT * FROM ${dbTable} WHERE ${bookmarkIdx}=? AND user_idx = ?`
+            let bookmarkQuery = `SELECT * FROM ${dbTable} WHERE ${typeIdx}=? AND user_idx = ?`
             let bookmakrResult = await db.queryParamArr(bookmarkQuery,[idx,user_idx]);
-            if(bookmakrResult[0]>=1){
+            console.log(bookmakrResult.length)
+            if(bookmakrResult.length>=1){
                 
-                return false; 
+                
+                return '1405' ; 
             }
             let insertQuery = `INSERT INTO ${dbTable} (${typeIdx}, user_idx) VALUES (?,?)`;
             let result = await db.queryParamArr(insertQuery,[idx,user_idx])
@@ -47,7 +49,7 @@ module.exports = {
             return result;
             
         }else{
-            return false;
+            return '1403';
         }
         
     }

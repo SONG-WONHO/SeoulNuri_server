@@ -18,6 +18,12 @@ router.post('/', async (req,res,next)=>{
             next("500");
             return;
         }
+        if(typeof result ==='string'){
+            
+            console.log(result);
+            next(result);
+            return;
+        }
 
         
     } catch (err) {

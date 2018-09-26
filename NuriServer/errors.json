@@ -29,7 +29,18 @@
         "description": "토큰 에러입니다.",
         "message": "Token Error"
     },
-    
+    "1403": {
+        "status": 200,
+        "code": 400,
+        "description": "없는 유저입니다",
+        "message": "Not User"
+    },
+    "1405": {
+        "status": 200,
+        "code": 400,
+        "description": "이미 북마크가 등록된 유저입니다.",
+        "message": "existed bookmark"
+    },
     "500": {
         "status": 500,
         "code": 500,
