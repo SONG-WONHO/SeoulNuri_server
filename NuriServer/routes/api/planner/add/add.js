@@ -8,12 +8,15 @@ router.post('/', async(req,res,next) =>{
 	let tour_idx = req.body.tour_idx
 	let data = {}
 
+
 	 try {
 
-	 	if(!user_idx || !plan_date || !plan_tours){
+
+	 	if(!user_idx || !plan_date || !tour_idx){
 	 		next("400")
 	 		return
 	 	}
+
 	 	let result = await planner.add_plan(user_idx, plan_date,tour_idx)
 
 	 	data.plan_idx = result
