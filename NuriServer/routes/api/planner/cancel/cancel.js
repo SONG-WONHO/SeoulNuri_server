@@ -12,7 +12,7 @@ router.delete('/', async (req,res,next)=>{
             next("400");
             return;
         }
-        let result = await planner.delete_plan(1, planIdx);
+        let result = await planner.delete_plan(req.user.user_idx, planIdx);
         if(!result || result === false){
             next("500");
             return;

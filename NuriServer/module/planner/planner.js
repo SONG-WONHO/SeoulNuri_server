@@ -106,7 +106,7 @@ module.exports = {
         let selectQuery1 = `SELECT * FROM planner_detail WHERE plan_idx = ?`;
         let selectResult1 = await db.queryParamArr(selectQuery1,[plan_idx]);
 
-        if(!selectResult || selectResult1 ){
+        if(!selectResult || !selectResult1 ){
             return false;
         }
 
