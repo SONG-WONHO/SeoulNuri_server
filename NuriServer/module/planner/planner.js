@@ -76,7 +76,7 @@ module.exports = {
 
         if(!insertNewPlanResult){
             console.log("aaa");
-            return false
+            return null
         }
         // 방금 넣은 plan의 index
         plan_idx = insertNewPlanResult.insertId
@@ -90,7 +90,7 @@ module.exports = {
         for(i = 0 ; i < tour_idx_after.length ; i++){
             let insertNewPlanTourResult = await db.queryParamArr(insertNewPlanTourQuery, [plan_idx, tour_idx_after[i]])
             if(!insertNewPlanTourResult){
-                return false
+                return null
             }
         }
 
