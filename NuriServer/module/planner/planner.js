@@ -127,9 +127,10 @@ module.exports = {
     get_planner_list : async(user_idx)=>{
         
         let selectQuery = `SELECT date_format(plan_date,"%Y") AS date_year, date_format(plan_date,"%m") AS date_month,
-        date_format(plan_date,"%d") AS date_day,plan_idx, substring_index( group_concat(tour_name),',',1) AS tour_name
+        date_format(plan_date,"%d") AS date_day,plan_idx, substring_index( group_concat(tour_name order by detail_idx ),',',1) AS tour_name
                 FROM SEOULNURI.tour
-                JOIN(SELECT tour_idx, plan_date,planner_detail.plan_idx
+                JOIN
+                (SELECT tour_idx, plan_date,planner_detail.plan_idx, detail_idx
                 FROM SEOULNURI.planner_list
                 LEFT JOIN SEOULNURI.planner_detail
                 ON planner_list.plan_idx = planner_detail.plan_idx
