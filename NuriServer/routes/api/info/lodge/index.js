@@ -12,8 +12,13 @@ router.use('/comment', commentRouter);
 //라우터 모듈 임포트
 const starRouter = require('./star');
 router.use('/star',starRouter);
+
+const bookmark = require('./bookmark');
+router.use('/bookmark',bookmark);
 //module
 const lodge = require('../../../../module/lodge/lodge');
+
+
 
 //숙박리스트 라우터
 router.get('/', async (req, res, next) => {
