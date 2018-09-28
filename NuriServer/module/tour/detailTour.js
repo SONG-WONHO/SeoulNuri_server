@@ -30,7 +30,7 @@ module.exports = {
 			result.tour_addr = selectResult[0].tour_addr
 		}
 
-		let selectBookedQuery = 
+		/*let selectBookedQuery = 
 		`
 		SELECT *
 		FROM bookmark_tour
@@ -44,7 +44,13 @@ module.exports = {
 		else
 			result.tour_booked = 1
 
-		return result
+		return result*/
+		let selectBookedQuery = `SELECT count(*) AS tour_booked
+		FROM bookmark_tour 
+		WHERE user_idx = ? AND tour_idx = ?`;
+		let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,tour_idx]);
+		result.tour_booked = selectBookedResult[0]["tour_booked"];
+		return result;
 	},
 
 	// 관광지 소개 (화면 하단)
