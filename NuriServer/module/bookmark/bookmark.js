@@ -44,9 +44,15 @@ module.exports = {
                 return '1405' ; 
             }
             let insertQuery = `INSERT INTO ${dbTable} (${typeIdx}, user_idx) VALUES (?,?)`;
-            let result = await db.queryParamArr(insertQuery,[idx,user_idx])
+            let insertResult = await db.queryParamArr(insertQuery,[idx,user_idx])
+            if(!insertResult){
+                return false;
+            }
+            let isBookedQuery = `SELECT count(*) AS isBooked FROM ${dbTable} WHERE user_idx = ? AND ${typeIdx}=?`
+            let result = await db.queryParamArr(isBookedQuery,[user_idx,idx]);
+
             console.log(result);
-            return result;
+            return result[0];
             
         }else{
             return '1403';

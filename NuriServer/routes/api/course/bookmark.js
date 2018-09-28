@@ -4,6 +4,7 @@ const bookmark = require('../../../module/bookmark/bookmark.js');
 
 
 router.post('/', async (req,res,next)=>{
+    let result;
     try {
         let courseIdx = req.body.course_idx;
         console.log(courseIdx)
@@ -12,7 +13,7 @@ router.post('/', async (req,res,next)=>{
             next("400");
             return;
         }
-        let result = await bookmark.post_bookmark("course",courseIdx,req.user.user_idx);
+        result = await bookmark.post_bookmark("course",courseIdx,req.user.user_idx);
         console.log(result);
         if(!result || result === false){
             next("500");
@@ -31,7 +32,7 @@ router.post('/', async (req,res,next)=>{
         return;
         
     }
-    res.r();
+    res.r(result);
 });
 
 
