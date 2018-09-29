@@ -291,6 +291,15 @@ module.exports = {
 		}
 		//console.log(data)
 
+		selectBookedQuery = `SELECT count(*) AS tour_booked
+		FROM bookmark_tour 
+		WHERE user_idx = ? AND tour_idx = ?`;
+
+		for(i = 0 ; i < data.length ; i ++){
+			selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,data[i].tour_idx])
+			data[i].tour_booked = selectBookedResult[0].tour_booked
+		}
+
 		return data
 	}
 }
