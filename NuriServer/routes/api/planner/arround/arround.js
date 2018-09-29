@@ -4,7 +4,6 @@ const router = express.Router();
 //module
 const locationTour = require('../../../../module/tour/locationTour')
 
-
 /* GET home page. */
 router.get('/', async(req, res, next) => {
 	let tour_idx = req.query.tour_idx
