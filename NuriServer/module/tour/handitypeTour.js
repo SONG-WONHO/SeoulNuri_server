@@ -65,7 +65,7 @@ module.exports = {
 		for(i = 0 ; i < results.length ; i++){
 			let selectTourQuery =
 			`
-			SELECT tour_idx, tour_name, tour_addr, tour_info, tour_image, tour_star, tour_star_count
+			SELECT tour_idx, tour_name, tour_addr, tour_info, tour_card_image, tour_star, tour_star_count
 			FROM tour
 			WHERE tour_idx = ?
 			`
@@ -75,7 +75,7 @@ module.exports = {
 			reco_tour[i].tour_name = selectTourResult[0].tour_name
 			reco_tour[i].tour_addr = selectTourResult[0].tour_addr
 			reco_tour[i].tour_info = selectTourResult[0].tour_info
-			reco_tour[i].tour_image = selectTourResult[0].tour_image
+			reco_tour[i].tour_card_image = selectTourResult[0].tour_card_image
 			reco_tour[i].tour_star = selectTourResult[0].tour_star
 			reco_tour[i].tour_star_count = selectTourResult[0].tour_star_count
 		}

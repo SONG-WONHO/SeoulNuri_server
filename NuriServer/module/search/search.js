@@ -27,8 +27,7 @@ module.exports = {
         });
         if(selectResult.length>1){
             selectResult.sort(function(a,b){
-                return a.tour_name < b.tour_name ? -1 : a.tour_name > b.tour_name? 1 : 0;
-                
+                return a.tour_name < b.tour_name ? -1 : a.tour_name > b.tour_name? 1 : 0;                
             });
         }
         

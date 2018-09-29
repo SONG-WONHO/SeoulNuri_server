@@ -1,5 +1,88 @@
 const db = require('../db');
 
+/*
+마감에 시달리면서 코딩하니까 코드가 매우 더러워져서 자괴감들고 괴로워
+*/
+
+async function DEFAULT(handi_type) {
+	let tour_idxs = []
+	let result
+	console.log(handi_type)
+	for (i = 0 ; i < handi_type.length ; i++){
+		switch (handi_type[i]) {
+				case 1 : // tour_visual
+				selectFilterQuery = 
+				`
+				SELECT tour_idx
+				FROM tour_visual
+				`
+				// filter에 해당하는 item들이 있으면 반환, 없으면 빈값 반환
+				result = await db.queryParamArr(selectFilterQuery)
+
+				if(!result){
+					return
+				}
+
+				for(k = 0 ; k < result.length ; k++){
+					tour_idxs.push(result[k].tour_idx)
+				}
+				break
+
+				case 2 : // tour_hearing
+				selectFilterQuery = 
+				`
+				SELECT tour_idx
+				FROM tour_hearing
+				`
+				result = await db.queryParamArr(selectFilterQuery)
+
+				if(!result){
+					return
+				}
+
+				for(k = 0 ; k < result.length ; k++){
+					tour_idxs.push(result[k].tour_idx)
+				}
+				break
+
+				case 3 : // tour_physical
+				selectFilterQuery = 
+				`
+				SELECT tour_idx
+				FROM tour_physical
+				`
+				result = await db.queryParamArr(selectFilterQuery)
+
+				if(!result){
+					return
+				}
+
+				for(k = 0 ; k < result.length ; k++){
+					tour_idxs.push(result[k].tour_idx)
+				}
+				break
+
+				case 4 : // tour_older
+				selectFilterQuery = 
+				`
+				SELECT tour_idx
+				FROM tour_older
+				`
+				result = await db.queryParamArr(selectFilterQuery)
+
+				if(!result){
+					return
+				}
+
+				for(k = 0 ; k < result.length ; k++){
+					tour_idxs.push(result[k].tour_idx)
+				}
+				break 
+			}
+	}
+
+		return tour_idxs.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;}, []) // 중복 제거
+}
 module.exports = {
 
 	/*
@@ -47,7 +130,7 @@ module.exports = {
 		if(handi_type.indexOf(9) != -1){
 			let selectDefaultQuery =
 			`
-			SELECT tour_idx, tour_name, tour_image, tour_star, tour_star_count
+			SELECT tour_idx, tour_name, tour_card_image, tour_star, tour_star_count
 			FROM tour
 			`
 			let selectBookedQuery = `SELECT count(*) AS tour_booked
@@ -63,7 +146,7 @@ module.exports = {
 				data[i] = {}
 				data[i].tour_idx = selectDefaultResult[i].tour_idx
 				data[i].tour_name = selectDefaultResult[i].tour_name
-				data[i].tour_image = selectDefaultResult[i].tour_image
+				data[i].tour_card_image = selectDefaultResult[i].tour_card_image
 				data[i].tour_star = selectDefaultResult[i].tour_star
 				data[i].tour_star_count = selectDefaultResult[i].tour_star_count 
 				data[i].tour_booked = selectBookedResult[0].tour_booked
@@ -111,6 +194,8 @@ module.exports = {
 		let hearing = []
 		let physical = []
 		let older = []
+
+		let DEFAULT_tour_idx = [] // 이게 null(length가 0)이면 default가 아니다. 아니면 default임
 
 		// 세부필터의 시각, 청각, 지체, 노인에 따른 분류
 		for(i = 0 ; i < filter.length ; i++){
@@ -166,6 +251,12 @@ module.exports = {
 				case 31 :
 				older.push("elevator")
 				break
+
+				case 99 : //DEFAULT
+				DEFAULT_tour_idx = await DEFAULT(handi_type)
+				console.log(DEFAULT_tour_idx)
+				break
+
 			}
 		}
 
@@ -269,7 +360,7 @@ module.exports = {
 
 
 		let selectRecoQuery = `
-		SELECT tour_idx, tour_name, tour_image, tour_star, tour_star_count 
+		SELECT tour_idx, tour_name, tour_card_img, tour_star, tour_star_count 
 		FROM tour 
 		WHERE tour_idx = ?
 		`
@@ -277,17 +368,29 @@ module.exports = {
 		FROM bookmark_tour 
 		WHERE user_idx = ? AND tour_idx = ?`;
 
-		
-		for(i = 0 ; selectIdxResult[i] != undefined && i < selectIdxResult.length ; i++){
-			let selectResult = await db.queryParamArr(selectRecoQuery, selectIdxResult[i].tour_idx)
+		if(DEFAULT_tour_idx.length != 0){ // default일 경우
+			for(i = 0 ; i < DEFAULT_tour_idx.length ; i++){
+				let selectResult = await db.queryParamArr(selectRecoQuery, DEFAULT_tour_idx[i])
+				//let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,]);
+				data[i] = {}
+				data[i].tour_idx = selectResult[0].tour_idx
+				data[i].tour_name = selectResult[0].tour_name
+				data[i].tour_card_image = selectResult[0].tour_card_img
+				data[i].tour_star = selectResult[0].tour_star
+				data[i].tour_star_count = selectResult[0].tour_star_count
+			}
+		} else {
+			for(i = 0 ; selectIdxResult[i] != undefined && i < selectIdxResult.length ; i++){
+				let selectResult = await db.queryParamArr(selectRecoQuery, selectIdxResult[i].tour_idx)
 			
-			//let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,]);
-			data[i] = {}
-			data[i].tour_idx = selectResult[0].tour_idx
-			data[i].tour_name = selectResult[0].tour_name
-			data[i].tour_image = selectResult[0].tour_image
-			data[i].tour_star = selectResult[0].tour_star
-			data[i].tour_star_count = selectResult[0].tour_star_count
+				//let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,]);
+				data[i] = {}
+				data[i].tour_idx = selectResult[0].tour_idx
+				data[i].tour_name = selectResult[0].tour_name
+				data[i].tour_card_image = selectResult[0].tour_card_image
+				data[i].tour_star = selectResult[0].tour_star
+				data[i].tour_star_count = selectResult[0].tour_star_count
+			}
 		}
 		//console.log(data)
 
@@ -299,7 +402,6 @@ module.exports = {
 			selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,data[i].tour_idx])
 			data[i].tour_booked = selectBookedResult[0].tour_booked
 		}
-
 		return data
 	}
 }

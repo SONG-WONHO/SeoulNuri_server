@@ -151,5 +151,21 @@ module.exports = {
 
 
 
+    },
+    get_image_tour : async(tour_idx) => {
+        let getTourImageQuery =
+        `
+        SELECT tour_planner_img
+        FROM tour
+        WHERE tour_idx = ?
+        `
+
+        let getTourImageResult = await db.queryParamArr(getTourImageQuery, tour_idx)
+
+        if(!getTourImageResult){
+            return
+        }
+
+        return getTourImageResult[0].tour_planner_img
     }
 };
