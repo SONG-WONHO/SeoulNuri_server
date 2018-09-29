@@ -130,7 +130,7 @@ module.exports = {
 		if(handi_type.indexOf(9) != -1){
 			let selectDefaultQuery =
 			`
-			SELECT tour_idx, tour_name, tour_card_image, tour_star, tour_star_count
+			SELECT tour_idx, tour_name, tour_card_img, tour_star, tour_star_count
 			FROM tour
 			`
 			let selectBookedQuery = `SELECT count(*) AS tour_booked
@@ -146,7 +146,7 @@ module.exports = {
 				data[i] = {}
 				data[i].tour_idx = selectDefaultResult[i].tour_idx
 				data[i].tour_name = selectDefaultResult[i].tour_name
-				data[i].tour_card_image = selectDefaultResult[i].tour_card_image
+				data[i].tour_card_img = selectDefaultResult[i].tour_card_img
 				data[i].tour_star = selectDefaultResult[i].tour_star
 				data[i].tour_star_count = selectDefaultResult[i].tour_star_count 
 				data[i].tour_booked = selectBookedResult[0].tour_booked
