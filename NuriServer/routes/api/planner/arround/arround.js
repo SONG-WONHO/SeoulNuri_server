@@ -6,19 +6,23 @@ const locationTour = require('../../../../module/tour/locationTour')
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
-let result = await locationTour.get_arround_location_tour(6)
-	// try {
+	let tour_idx = req.query.tour_idx
+	let result
+	try {
 
-	// 	let result = await locationTour.get_arround_location_tour(6)
+		if(!tour_idx){
+			next("500")
+			return
+		}
 
+		result = await locationTour.get_arround_location_tour(tour_idx)
 
-	// } catch (err) {
-	// 	next(err)
-	// 	return
-	// }
+	} catch (err) {
+		next(err)
+		return
+	}
 
-	// res.r(data)
-
+	res.r(result)
 });
 
 module.exports = router;

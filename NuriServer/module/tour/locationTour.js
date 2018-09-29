@@ -32,9 +32,6 @@ module.exports = {
 		FROM tour
 		`
 
-		console.log(onLocation)
-		
-
 		let selectArroundLocationResult = await db.queryParamNone(selectArroundLocationQuery)
 
 		if(!selectArroundLocationResult){
@@ -45,12 +42,12 @@ module.exports = {
 		for(i = 0 ; i < selectArroundLocationResult.length ; i++){
 			if(distance.calculateDistance(onLocation.tour_latitude, onLocation.tour_longitude, 
 				selectArroundLocationResult[i].tour_latitude, selectArroundLocationResult[i].tour_longitude) < 2){
+
+				if(selectArroundLocationResult[i].tour_idx != tour_idx)
 				arroundLocation.push(selectArroundLocationResult[i])
 			}
 		}
 
-		console.log(arroundLocation)
-
-
+		return arroundLocation
 	}
 }
