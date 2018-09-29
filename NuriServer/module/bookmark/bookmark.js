@@ -58,6 +58,19 @@ module.exports = {
             return '1403';
         }
         
+    },
+    //tour_idx로 각각 가져오기
+    get_bookmark_tour_each : async(tour_idx, user_idx)=> {
+        let tourBookmarkQuery =
+        `
+        SELECT *
+        FROM bookmark_tour
+        WHERE tour_idx = ? AND user_idx = ?
+        `
+
+        let tourBookmarkResult = await db.queryParamArr(tourBookmarkQuery, [tour_idx, user_idx])
+
+        
     }
 
 

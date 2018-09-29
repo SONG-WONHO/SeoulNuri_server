@@ -6,11 +6,13 @@ const plannerAdd = require('./add/add');
 const plannerSearch = require('./search/search');
 const plannerCancel = require('./cancel/cancel');
 const plannerList = require('./list/list');
+const plannerImage = require('./image/image');
 
 router.use('/add', plannerAdd);
 router.use('/search', plannerSearch);
 router.use('/cancel',plannerCancel);
 router.use('/list',plannerList);
+router.use('/image',plannerImage);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {

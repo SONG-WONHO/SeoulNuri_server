@@ -57,7 +57,7 @@ module.exports = {
 	get_intro_tour : async(tour_idx) => {
 		let selectIntroQuery =
 		`
-		SELECT tour_image, tour_info_detail
+		SELECT tour_info_image, tour_info_detail
 		FROM tour
 		WHERE tour_idx = ?
 		`
@@ -65,11 +65,11 @@ module.exports = {
 		let selectResult = await db.queryParamArr(selectIntroQuery, tour_idx)
 
 		let result = {}
-		result.tour_image = null
+		result.tour_info_image = null
 		result.tour_info_detail = null
 
 		if(selectResult.length != 0){
-			result.tour_image = selectResult[0].tour_image
+			result.tour_info_image = selectResult[0].tour_info_image
 			result.tour_info_detail = selectResult[0].tour_info_detail
 		}
 
