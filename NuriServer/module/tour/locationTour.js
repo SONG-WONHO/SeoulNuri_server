@@ -41,7 +41,7 @@ module.exports = {
 
 		for(i = 0 ; i < selectArroundLocationResult.length ; i++){
 			if(distance.calculateDistance(onLocation.tour_latitude, onLocation.tour_longitude, 
-				selectArroundLocationResult[i].tour_latitude, selectArroundLocationResult[i].tour_longitude) < 2){
+				selectArroundLocationResult[i].tour_latitude, selectArroundLocationResult[i].tour_longitude) < 5){
 
 				if(selectArroundLocationResult[i].tour_idx != tour_idx)
 				arroundLocation.push(selectArroundLocationResult[i])
