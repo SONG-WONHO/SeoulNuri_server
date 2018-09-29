@@ -13,7 +13,7 @@ module.exports = {
             typeImage = type+'_image';
 
         }else{
-            typeImage = type+'_card_image';
+            typeImage = type+'_card_img';
 
         }
         
