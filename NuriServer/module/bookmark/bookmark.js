@@ -8,7 +8,15 @@ module.exports = {
         let starAverage  = type + '_star';
         let starCount = type + '_star_count';
         let typeTitle = type+ '_name';
-        let typeImage = type+'_image';
+        let typeImage;
+        if(type === "course"){
+            typeImage = type+'_image';
+
+        }else{
+            typeImage = type+'_card_image';
+
+        }
+        
 
         let selectQuery = `
         SELECT ${starAverage},${starCount},${typeTitle},${typeImage},${dbTable}.${typeIdx}
