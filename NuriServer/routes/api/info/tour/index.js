@@ -38,7 +38,7 @@ router.get('/', async(req, res, next) => {
 		handi_type = JSON.parse(handi_type)
 		filter = JSON.parse(filter)
 		
-		data = await filterTour.get_filter_tour(handi_type, filter)
+		data = await filterTour.get_filter_tour(handi_type, filter,req.user.user_idx)
 	} catch (err) {
 		next(err);
 		return

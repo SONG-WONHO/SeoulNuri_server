@@ -19,7 +19,7 @@ module.exports = {
 
 
 	//************전체 일 때 처리?
-	get_filter_tour : async (handi_type, filter) => {
+	get_filter_tour : async (handi_type, filter,user_idx) => {
 		let data = [] // 리턴 값
 		let types = []
 		//console.log(handi_type[0])
@@ -50,16 +50,23 @@ module.exports = {
 			SELECT tour_idx, tour_name, tour_image, tour_star, tour_star_count
 			FROM tour
 			`
+			let selectBookedQuery = `SELECT count(*) AS tour_booked
+		FROM bookmark_tour 
+		WHERE user_idx = ? AND tour_idx = ?`;
 
 			let selectDefaultResult = await db.queryParamNone(selectDefaultQuery)
 
+
 			for(i = 0 ; i < selectDefaultResult.length; i++){
+				let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,selectDefaultResult[i].tour_idx]);
+				//console.log(selectBookedResult[0]);
 				data[i] = {}
 				data[i].tour_idx = selectDefaultResult[i].tour_idx
 				data[i].tour_name = selectDefaultResult[i].tour_name
 				data[i].tour_image = selectDefaultResult[i].tour_image
 				data[i].tour_star = selectDefaultResult[i].tour_star
-				data[i].tour_star_count = selectDefaultResult[i].tour_star_count
+				data[i].tour_star_count = selectDefaultResult[i].tour_star_count 
+				data[i].tour_booked = selectBookedResult[0].tour_booked
 			}
 
 			return data
@@ -266,9 +273,15 @@ module.exports = {
 		FROM tour 
 		WHERE tour_idx = ?
 		`
+		let selectBookedQuery = `SELECT count(*) AS tour_booked
+		FROM bookmark_tour 
+		WHERE user_idx = ? AND tour_idx = ?`;
+
 		
 		for(i = 0 ; selectIdxResult[i] != undefined && i < selectIdxResult.length ; i++){
 			let selectResult = await db.queryParamArr(selectRecoQuery, selectIdxResult[i].tour_idx)
+			
+			//let selectBookedResult = await db.queryParamArr(selectBookedQuery,[user_idx,]);
 			data[i] = {}
 			data[i].tour_idx = selectResult[0].tour_idx
 			data[i].tour_name = selectResult[0].tour_name
