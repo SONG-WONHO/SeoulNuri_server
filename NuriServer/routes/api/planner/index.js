@@ -7,12 +7,14 @@ const plannerSearch = require('./search/search');
 const plannerCancel = require('./cancel/cancel');
 const plannerList = require('./list/list');
 const plannerImage = require('./image/image');
+const plannerArround = require('./arround/arround');
 
 router.use('/add', plannerAdd);
 router.use('/search', plannerSearch);
 router.use('/cancel',plannerCancel);
 router.use('/list',plannerList);
 router.use('/image',plannerImage);
+router.use('/arround',plannerArround);
 
 /* GET home page. */
 router.get('/', async(req, res, next) => {
