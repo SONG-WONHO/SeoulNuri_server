@@ -87,10 +87,10 @@ module.exports = {
 
 	/*
 	handi_type : array
-	시각: 1
-	청각: 2
-	지체: 3
-	노인: 4
+	시각: 0
+	청각: 1
+	지체: 2
+	노인: 3
 
 	filter : array
 	시각 -> 점자블록 : a0, 정자홍보물 : a1, 보조견 동반 : a2, 오디오가이드 : a3, 안내요원 : a4, 전자표지판 : a5
@@ -108,19 +108,19 @@ module.exports = {
 		//console.log(handi_type[0])
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
-				case 1 :
+				case 0 :
 				types[i] = "tour_visual"
 				break
 
-				case 2 :
+				case 1 :
 				types[i] = "tour_hearing"
 				break
 
-				case 3 :
+				case 2 :
 				types[i] = "tour_physical"
 				break
 
-				case 4 :
+				case 3 :
 				types[i] = "tour_older"
 				break 
 			}
@@ -180,8 +180,6 @@ module.exports = {
 
 		// 필터에 맞는 관광지 index들 값
 		let selectIdxResult = await db.queryParamNone(selectRecoIdxQuery2)
-		
-		//console.log(selectIdxResult)
 
 		// 아무 값도 없을 때
 		if(!selectIdxResult)
@@ -254,11 +252,11 @@ module.exports = {
 
 				case 99 : //DEFAULT
 				DEFAULT_tour_idx = await DEFAULT(handi_type)
-				console.log(DEFAULT_tour_idx)
 				break
 
 			}
 		}
+
 
 		let selectFilterQuery = ""
 
@@ -269,11 +267,11 @@ module.exports = {
 		4. 결국 남은 index들이 조건들을 만족하는 관광지이다.
 		*/
 		for(x = 0 ; x < selectIdxResult.length ; x++){
-			let isExist = 1 // 필터에 해당 하는 조건을 모두 만약해야 1 하나라도 만족하지 않으면 0
+			let isExist = 0 // 필터에 해당 하는 조건을 모두 만약해야 1 하나라도 만족하지 않으면 0
 			let check
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
-				case 1 : // tour_visual
+				case 0 : // tour_visual
 				selectFilterQuery = 
 				`
 				SELECT tour_idx
@@ -282,19 +280,20 @@ module.exports = {
 				`
 				// filter들의 item들을 확인하기 위해 query 만듬
 				for(j = 0 ; j < visual.length ; j++){
-					selectFilterQuery += ' AND ' + visual[j] + '= 1'
+					selectFilterQuery += ' AND ' + visual[j] + '!= "없음"'
 				}
-				// filter에 해당하는 item들이 있으면 반환, 없으면 빈값 반환
-				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x])
 
-				if(check.length == 0){
-					isExist = 0
+
+				// filter에 해당하는 item들이 있으면 반환, 없으면 빈값 반환
+				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
+				if(check.length != 0){
+					isExist = 1
 					break
 				}
 
 				break
 
-				case 2 : // tour_hearing
+				case 1 : // tour_hearing
 				selectFilterQuery = 
 				`
 				SELECT tour_idx
@@ -302,17 +301,18 @@ module.exports = {
 				WHERE tour_idx = ?
 				`
 				for(j = 0 ; j < hearing.length ; j++){
-					selectFilterQuery += ' AND ' + hearing[j] + '= 1'
+					selectFilterQuery += ' AND ' + hearing[j] + '!= "없음"'
 				}
-				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x])
+				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
+				console.log(check)
 
-				if(check.length == 0){
-					isExist = 0
+				if(check.length != 0){
+					isExist = 1
 					break
 				}
 				break
 
-				case 3 : // tour_physical
+				case 2 : // tour_physical
 				selectFilterQuery = 
 				`
 				SELECT tour_idx
@@ -320,18 +320,18 @@ module.exports = {
 				WHERE tour_idx = ?
 				`
 				for(j = 0 ; j < physical.length ; j++){
-					selectFilterQuery += ' AND ' + physical[j] + '= 1'
+					selectFilterQuery += ' AND ' + physical[j] + '!= "없음"'
 				}
-				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x])
+				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
 
-				if(check.length == 0){
-					isExist = 0
+				if(check.length != 0){
+					isExist = 1
 					break
 				}
 
 				break
 
-				case 4 : // tour_older
+				case 3 : // tour_older
 				selectFilterQuery = 
 				`
 				SELECT tour_idx
@@ -339,12 +339,12 @@ module.exports = {
 				WHERE tour_idx = ?
 				`
 				for(j = 0 ; j < older.length ; j++){
-					selectFilterQuery += ' AND ' + older[j] + '= 1'
+					selectFilterQuery += ' AND ' + older[j] + '!= "없음"'
 				}
-				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x])
+				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
 
-				if(check.length == 0){
-					isExist = 0
+				if(check.length != 0){
+					isExist = 1
 					break
 				}
 
@@ -355,8 +355,18 @@ module.exports = {
 		if(!isExist){
 			delete selectIdxResult[x] // 삭제(undefined)
 		}
-		//console.log(selectIdxResult)
 	}
+
+	// undefined 요소 삭제
+	for(i = 0 ; i < selectIdxResult.length ; ){
+		if(selectIdxResult[i] == undefined){
+			selectIdxResult.splice(i,1)
+		} else{
+			i++
+		}	
+
+	}
+
 
 
 		let selectRecoQuery = `
