@@ -12,6 +12,7 @@ module.exports = {
 
 	get_handitype_reco_tour : async (handi_type) => {
 		let types = []
+		let reco_tour = [] 
 
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
@@ -51,16 +52,16 @@ module.exports = {
 		}
 
 
+		while(1){
 		// 해당하는 장애 타입에 관련된 관광지 중 램덤으로 4개 뽑음
 		let results = []
-		for(i = 0 ; i < 4 ; i++){
+		for(i = 0 ; i < 4 - reco_tour.length ; i++){
 			// Math.random은 현재 시간을 시준으로 seed를 삼는다. 결론 : 암튼 랜덤임
 			result = Math.floor(Math.random() * tours_index.length)
 			results[i] = tours_index[result]
 			tours_index.splice(result,1)
 		}
 
-		let reco_tour = []
 
 		for(i = 0 ; i < results.length ; i++){
 			let selectTourQuery =
@@ -71,17 +72,22 @@ module.exports = {
 			`
 			let selectTourResult = await db.queryParamArr(selectTourQuery, results[i])
 
-			if(selectTourResult[0].tour_card_img != "없음"){ // 이미지 있을 때만
-				reco_tour[i] = {}
-				reco_tour[i].tour_idx = selectTourResult[0].tour_idx
-				reco_tour[i].tour_name = selectTourResult[0].tour_name
-				reco_tour[i].tour_addr = selectTourResult[0].tour_addr
-				reco_tour[i].tour_info = selectTourResult[0].tour_info
-				reco_tour[i].tour_card_image = selectTourResult[0].tour_card_img
-				reco_tour[i].tour_star = selectTourResult[0].tour_star
-				reco_tour[i].tour_star_count = selectTourResult[0].tour_star_count
+			if(selectTourResult[0].tour_card_img!="없음"){
+				let obj = {}
+				obj.tour_idx = selectTourResult[0].tour_idx
+				obj.tour_name = selectTourResult[0].tour_name
+				obj.tour_addr = selectTourResult[0].tour_addr
+				obj.tour_info = selectTourResult[0].tour_info
+				obj.tour_card_image = selectTourResult[0].tour_card_img
+				obj.tour_star = selectTourResult[0].tour_star
+				obj.tour_star_count = selectTourResult[0].tour_star_count
+				reco_tour.push(obj)
 			}
 		}
+
+		if(reco_tour.length == 4)
+			break
+	}
 
 		return reco_tour
 
