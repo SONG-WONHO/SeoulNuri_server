@@ -28,7 +28,7 @@ module.exports = {
 
 		let selectArroundLocationQuery =
 		`
-		SELECT tour_idx, tour_name, tour_latitude, tour_longitude
+		SELECT tour_idx, tour_name, tour_latitude, tour_longitude, tour_addr, tour_star, tour_star_count
 		FROM tour
 		`
 
