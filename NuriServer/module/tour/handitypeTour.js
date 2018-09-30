@@ -11,23 +11,24 @@ module.exports = {
 	*/
 
 	get_handitype_reco_tour : async (handi_type) => {
+		console.log(handi_type);
 		let types = []
 
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
-				case 1 :
+				case 0 :
 				types[i] = "tour_visual"
 				break
 
-				case 2 :
+				case 1 :
 				types[i] = "tour_hearing"
 				break
 
-				case 3 :
+				case 2 :
 				types[i] = "tour_physical"
 				break
 
-				case 4 :
+				case 3 :
 				types[i] = "tour_older"
 				break 
 			}
