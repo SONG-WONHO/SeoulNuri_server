@@ -385,7 +385,7 @@ module.exports = {
 				data[i] = {}
 				data[i].tour_idx = selectResult[0].tour_idx
 				data[i].tour_name = selectResult[0].tour_name
-				data[i].tour_card_image = selectResult[0].tour_card_img
+				data[i].tour_card_img = selectResult[0].tour_card_img
 				data[i].tour_star = selectResult[0].tour_star
 				data[i].tour_star_count = selectResult[0].tour_star_count
 			}
@@ -397,7 +397,7 @@ module.exports = {
 				data[i] = {}
 				data[i].tour_idx = selectResult[0].tour_idx
 				data[i].tour_name = selectResult[0].tour_name
-				data[i].tour_card_image = selectResult[0].tour_card_image
+				data[i].tour_card_img = selectResult[0].tour_card_img
 				data[i].tour_star = selectResult[0].tour_star
 				data[i].tour_star_count = selectResult[0].tour_star_count
 			}

@@ -78,7 +78,7 @@ module.exports = {
 				obj.tour_name = selectTourResult[0].tour_name
 				obj.tour_addr = selectTourResult[0].tour_addr
 				obj.tour_info = selectTourResult[0].tour_info
-				obj.tour_card_image = selectTourResult[0].tour_card_img
+				obj.tour_card_img = selectTourResult[0].tour_card_img
 				obj.tour_star = selectTourResult[0].tour_star
 				obj.tour_star_count = selectTourResult[0].tour_star_count
 				reco_tour.push(obj)
