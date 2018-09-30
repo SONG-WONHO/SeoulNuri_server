@@ -4,10 +4,10 @@ module.exports = {
 
 	/*
 	handi_type : array
-	시각: 1
-	청각: 2
-	지체: 3
-	노인: 4
+	시각: 0
+	청각: 1
+	지체: 2
+	노인: 3
 	*/
 
 	get_handitype_reco_tour : async (handi_type) => {
@@ -70,14 +70,17 @@ module.exports = {
 			WHERE tour_idx = ?
 			`
 			let selectTourResult = await db.queryParamArr(selectTourQuery, results[i])
-			reco_tour[i] = {}
-			reco_tour[i].tour_idx = selectTourResult[0].tour_idx
-			reco_tour[i].tour_name = selectTourResult[0].tour_name
-			reco_tour[i].tour_addr = selectTourResult[0].tour_addr
-			reco_tour[i].tour_info = selectTourResult[0].tour_info
-			reco_tour[i].tour_card_image = selectTourResult[0].tour_card_img
-			reco_tour[i].tour_star = selectTourResult[0].tour_star
-			reco_tour[i].tour_star_count = selectTourResult[0].tour_star_count
+
+			if(selectTourResult[0].tour_card_img != "없음"){ // 이미지 있을 때만
+				reco_tour[i] = {}
+				reco_tour[i].tour_idx = selectTourResult[0].tour_idx
+				reco_tour[i].tour_name = selectTourResult[0].tour_name
+				reco_tour[i].tour_addr = selectTourResult[0].tour_addr
+				reco_tour[i].tour_info = selectTourResult[0].tour_info
+				reco_tour[i].tour_card_image = selectTourResult[0].tour_card_img
+				reco_tour[i].tour_star = selectTourResult[0].tour_star
+				reco_tour[i].tour_star_count = selectTourResult[0].tour_star_count
+			}
 		}
 
 		return reco_tour
