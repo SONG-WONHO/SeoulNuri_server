@@ -267,7 +267,7 @@ module.exports = {
 		4. 결국 남은 index들이 조건들을 만족하는 관광지이다.
 		*/
 		for(x = 0 ; x < selectIdxResult.length ; x++){
-			let isExist = 0 // 필터에 해당 하는 조건을 모두 만약해야 1 하나라도 만족하지 않으면 0
+			let isExist = 1 // 필터에 해당 하는 조건을 모두 만약해야 1 하나라도 만족하지 않으면 0
 			let check
 		for(i = 0 ; i < handi_type.length ; i++){
 			switch (handi_type[i]) {
@@ -286,8 +286,8 @@ module.exports = {
 
 				// filter에 해당하는 item들이 있으면 반환, 없으면 빈값 반환
 				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
-				if(check.length != 0){
-					isExist = 1
+				if(check.length == 0){
+					isExist = 0
 					break
 				}
 
@@ -304,10 +304,8 @@ module.exports = {
 					selectFilterQuery += ' AND ' + hearing[j] + '!= "없음"'
 				}
 				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
-				console.log(check)
-
-				if(check.length != 0){
-					isExist = 1
+				if(check.length == 0){
+					isExist = 0
 					break
 				}
 				break
@@ -323,9 +321,8 @@ module.exports = {
 					selectFilterQuery += ' AND ' + physical[j] + '!= "없음"'
 				}
 				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
-
-				if(check.length != 0){
-					isExist = 1
+				if(check.length == 0){
+					isExist = 0
 					break
 				}
 
@@ -343,8 +340,8 @@ module.exports = {
 				}
 				check = await db.queryParamArr(selectFilterQuery, selectIdxResult[x].tour_idx)
 
-				if(check.length != 0){
-					isExist = 1
+				if(check.length == 0){
+					isExist = 0
 					break
 				}
 
@@ -356,6 +353,7 @@ module.exports = {
 			delete selectIdxResult[x] // 삭제(undefined)
 		}
 	}
+
 
 	// undefined 요소 삭제
 	for(i = 0 ; i < selectIdxResult.length ; ){
