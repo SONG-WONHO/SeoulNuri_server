@@ -21,7 +21,7 @@ router.get('/', async(req, res, next) => {
 			next("400")
 			return
 		}
-
+		console.log(handitype)
 		rand_tour = await randomTour.get_random_tour()
 		reco_tour = await handitypeTour.get_handitype_reco_tour(handitype)
 
