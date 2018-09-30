@@ -10,16 +10,16 @@ module.exports = {
 
 		let selectResult = await db.queryParamNone(selectRandomQuery)
 
-		let result = {}
-
-		result.tour_idx = selectResult[0].tour_idx
-		result.tour_name = selectResult[0].tour_name
-		result.tour_addr = selectResult[0].tour_addr
-		result.tour_info = selectResult[0].tour_info
-		result.tour_card_img = selectResult[0].tour_card_img
-		result.tour_star = selectResult[0].tour_star
-		result.tour_star_count = selectResult[0].tour_star_count
-		
+		if(selectResult[0].tour_card_img!="없음"){ // 이미지 있을 때만
+			let result = {}
+			result.tour_idx = selectResult[0].tour_idx
+			result.tour_name = selectResult[0].tour_name
+			result.tour_addr = selectResult[0].tour_addr
+			result.tour_info = selectResult[0].tour_info
+			result.tour_card_img = selectResult[0].tour_card_img
+			result.tour_star = selectResult[0].tour_star
+			result.tour_star_count = selectResult[0].tour_star_count
+		}
 
 		return result
 	}
